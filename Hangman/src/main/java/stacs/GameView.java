@@ -18,7 +18,10 @@ public class GameView {
      * @param game The GameControl object that contains the game's current state information.
     */
     public static void interfaceState(GameControl game) {
-
+        System.out.println("Current guess word: " + game.getCurrentGuessWord());
+        System.out.println("Remaining times: " + game.getRemainingTimes());
+        System.out.println("Guessed letters: " + game.getAlreadyGuessedLetters());
+        System.out.println(game.getHangmanImage());
     }
 
     /**
@@ -35,7 +38,13 @@ public class GameView {
      *hangmanImages[5]: Drawing the right leg of Hangman.
      */
     public static String[] hangmanImages = {
-
+            "+---+\n|   |\n|    \n|    \n|    \n|\n=======",
+            "+---+\n|   |\n|   O\n|    \n|    \n|\n=======",
+            "+---+\n|   |\n|   O\n|   |\n|    \n|\n=======",
+            "+---+\n|   |\n|   O\n|  /|\n|    \n|\n=======",
+            "+---+\n|   |\n|   O\n|  /|\\\n|    \n|\n=======",
+            "+---+\n|   |\n|   O\n|  /|\\\n|  / \n|\n=======",
+            "+---+\n|   |\n|   O\n|  /|\\\n|  / \\\n|\n=======",
     };
 
     /**
@@ -44,9 +53,11 @@ public class GameView {
      * @return A string of underscores representing the unguessed state of the guessWord.
      */
     public static String underlineWord(String guessWord){
-        
-
-        return "underline";
+        StringBuilder underline = new StringBuilder();
+        for (int i = 0; i< guessWord.length(); i++){ // Adding the underscores according to the length of word.
+            underline.append("_");
+        }
+        return underline.toString();
     }
 
     /**
@@ -55,7 +66,11 @@ public class GameView {
      * where it manages user input and game state until the game ends.
      */
     public static void hangManGui() {
-
+        Scanner scanner = new Scanner(System.in); // Initialize the Scanner object to receive user's input from console.
+        GameControl game = initializeGame(); // Initialize game's state.
+        if (game == null) return; // The method will exit if the word list is null.
+        runGameLoop(game, scanner); // Responsible for dealing with game circle.
+        displayGameResult(game); // Deal with the game result.
     }
 
     /**
@@ -66,9 +81,12 @@ public class GameView {
      * @return A GameControl instance initialized with a random guess word.
      */
     public static GameControl initializeGame() {
-
-        GameControl GameControl = null;
-        return GameControl;
+        String guessWord = getRandomWord(); // Using getRandonWord method to acquire a random word for the word list.
+        if (guessWord == null) {
+            System.out.println("Word list is empty");
+            return null;
+        }
+        return new GameControl(guessWord);
     }
 
     /**
@@ -80,7 +98,22 @@ public class GameView {
      * @param scanner The scanner object used to read user input.
      */
     public static void runGameLoop(GameControl game, Scanner scanner) {
- 
+        System.out.println("Hangman game start");
+        while (!game.isWordEqual() && game.isAttempt()) { // Judging whether the game is over or not.
+            System.out.println("Please guess a letter:");
+            String input = scanner.nextLine().trim(); // Eliminating the space of letter in two sides.
+            if (input == null || input.isEmpty()) { // Judging whether the input is null or not.
+                System.out.println("No input detected. Please enter a letter.");
+                continue;
+            }
+            char guess = input.toLowerCase().charAt(0);// The game will transfer the letter player input into lower case. Then take the first letter player input.
+            if (!Character.isLetter(guess)) { // If the player enters something other than a letter, a prompt will be displayed.
+                System.out.println("Invalid input. Please enter a letter.");
+                continue;
+            }
+            game.guessResult(guess); // Update the game state with the user's guessed letter
+            GameView.interfaceState(game); // Update interface information based on current game status
+        }
     }
 
     /**
@@ -91,6 +124,10 @@ public class GameView {
      * @param game The game instance for which to display the result.
      */
     public static void displayGameResult(GameControl game) {
-
+        if (game.isWordEqual()) { // Judging whether the word player has guessed is equal to the word the game has given or not.
+            System.out.println("\nCongratulations, you've won! The word was: " + game.getGuessWord());
+        } else {
+            System.out.println("\nGame over. The word was: " + game.getGuessWord());
+        }
     }
 }
