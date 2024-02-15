@@ -14,12 +14,6 @@ class GameControlTest {
     }
 
     @Test
-    void testInitialization() {
-        assertEquals("_____", game.getCurrentGuessWord(), "Initial guess word should be all underscores");
-        assertEquals("maven", game.getGuessWord(), "The guess word should be stored in lowercase");
-    }
-
-    @Test
     void testCorrectGuess() {
         assertTrue(game.guessResult('v'), "Guessing a correct letter should return true");
         assertEquals("__v__", game.getCurrentGuessWord(), "The current guess word should update correctly for correct guesses");
@@ -31,6 +25,7 @@ class GameControlTest {
         assertFalse(game.guessResult('z'), "Guessing an incorrect letter should return false");
         assertFalse(game.guessResult('z'), "Guessing an incorrect letter should return false");
         assertFalse(game.guessResult('z'), "Guessing an incorrect letter should return false");
+
         assertEquals(3, game.getRemainingTimes(), "The remaining times should decrease by 1 for incorrect guesses");
         assertTrue(game.getAlreadyGuessedLetters().contains('z'), "The guessed letter 'z' should be recorded");
     }

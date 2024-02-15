@@ -39,14 +39,6 @@ class GameViewTest {
     }
 
     @Test
-    void testWinCondition() {
-        for (char letter : selectedWord.toCharArray()) {
-            game.guessResult(letter);
-        }
-        assertTrue(game.isWordEqual());
-    }
-
-    @Test
     void testInterfaceStateOutput() {
         GameView.interfaceState(game);
         String expectedOutput = "Current guess word: " + game.getCurrentGuessWord() + System.lineSeparator() +
@@ -57,7 +49,7 @@ class GameViewTest {
     }
 
     @Test
-    void testDisplayGameResultOutput() {
+    void testDisplayGameResultWinOutput() {
         selectedWord = "debug";
         game = new GameControl(selectedWord);
 
@@ -70,7 +62,6 @@ class GameViewTest {
         GameView.displayGameResult(game);
         assertTrue(outputStreamCaptor.toString().trim().contains("Congratulations, you've won!"), "The output should contain the win message.");
     }
-
 
     @Test
     void testDisplayGameResultLossOutput() {

@@ -23,22 +23,7 @@ public class GameWord {
     public static String getRandomWord() {
         List<String> receiveWords = new ArrayList<>();
         Random random = new Random(); // Create a random instance.
-        try (InputStream is = GameControl.class.getResourceAsStream("/wordlist.txt");
-             Scanner scanner = new Scanner(is,"UTF-8")) {//Creates a Scanner object to read text from the InputStream with UTF-8 encoding.
-            while (scanner.hasNextLine()) { // Continuous to read the contex from the file.
-                String line = scanner.nextLine();
-                if (!line.isEmpty()) { // The word from file will add into receiveWords instance if the line is not empty.
-                    receiveWords.add(line);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
 
-        if (receiveWords.isEmpty()) {
-            return null;
-        }
 
         int randomIndex = random.nextInt(receiveWords.size()); // Generates a random index between 0 and the size of the receiveWords list (exclusive), effectively selecting a word at random from the list.
         return receiveWords.get(randomIndex); // Return the word randomly selected index from the receiveWords list.

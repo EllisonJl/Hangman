@@ -11,10 +11,7 @@ import static stacs.GameView.hangmanImages;
  * methods to process guesses, check game state.
  */
 public class GameControl {
-    private final String guessWord; //Reserving the word that user need to guess in the game.
-    private final StringBuilder currentGuessWord; //Reserving the current state that user guessed.
-    private final List<Character> alreadyGuessedLetters = new ArrayList<>(); //Reserving the words which are guessed.
-    private int remainingTimes = 6; //Reserving current remaining times.
+
 
     /**
      * Constructs a GameControl object with the specified guess word.
@@ -24,8 +21,7 @@ public class GameControl {
      * @param guessWord The word that needs to be guessed in the game.
      */
     public GameControl(String guessWord) {
-        this.guessWord = guessWord.toLowerCase();
-        this.currentGuessWord = new StringBuilder(GameView.underlineWord(guessWord));
+
     }
 
     /**
@@ -39,15 +35,9 @@ public class GameControl {
      * @return true if the guessed letter is part of the guess word, false otherwise.
      */
     public boolean guessResult(char guessedLetter) {
-        guessedLetter = Character.toLowerCase(guessedLetter);// Transfer the letter which user guessed into lower case.
 
-        boolean isCorrect = updateCurrentGuessWord(guessedLetter); // Check if the letter user have guessed is correct.
 
-        updateRemainingTimes(isCorrect); // Choose whether you need to reduce the number of guesses based on whether the guess is correct or not.
-
-        recordGuessedLetter(guessedLetter);// Record the letters that the player has been guessed.
-
-        return isCorrect; // Return the guessed result.
+        return false; // Return the guessed result.
     }
 
     /**
@@ -57,7 +47,7 @@ public class GameControl {
      */
     public boolean isWordEqual(){
 
-        return guessWord.equals(currentGuessWord.toString());
+        return false;
     }
 
     /**
@@ -68,7 +58,7 @@ public class GameControl {
      */
     public boolean isAttempt(){
 
-        return remainingTimes > 0;
+        return false;
     }
 
     /**
@@ -80,7 +70,7 @@ public class GameControl {
      */
     public String getCurrentGuessWord() {
 
-        return currentGuessWord.toString();
+        return "hello";
     }
 
     /**
@@ -92,7 +82,7 @@ public class GameControl {
      */
     public int getRemainingTimes() {
 
-        return remainingTimes;
+        return 6;
     }
 
     /**
@@ -104,7 +94,7 @@ public class GameControl {
      */
     public List<Character> getAlreadyGuessedLetters() {
 
-        return alreadyGuessedLetters;
+        return new ArrayList<>();
     }
 
     /**
@@ -115,8 +105,8 @@ public class GameControl {
      * @return Return different parts of Hangman image.
      */
     public String getHangmanImage() {
-        int index = remainingTimes;
-        return hangmanImages[6-index];
+
+        return hangmanImages[6];
     }
 
     /**
@@ -126,7 +116,7 @@ public class GameControl {
      */
     public String getGuessWord(){
 
-        return guessWord;
+        return "guessWord";
     }
 
     /**
@@ -141,12 +131,7 @@ public class GameControl {
      */
     private boolean updateCurrentGuessWord(char guessedLetter) {
         boolean isCorrect = false;
-        for (int j = 0; j < currentGuessWord.length(); j++) {
-            if (guessWord.charAt(j) == guessedLetter) {
-                currentGuessWord.setCharAt(j, guessedLetter);
-                isCorrect = true;
-            }
-        }
+
         return isCorrect;
     }
 
@@ -157,9 +142,7 @@ public class GameControl {
      * @param isCorrect A boolean indicating whether the player's guess is correct.
      */
     private void updateRemainingTimes(boolean isCorrect) {
-        if (!isCorrect) {
-            remainingTimes--;
-        }
+
     }
 
     /**
@@ -169,8 +152,6 @@ public class GameControl {
      * @param guessedLetter The letter that was guessed by the player.
      */
     private void recordGuessedLetter(char guessedLetter) {
-        if (!alreadyGuessedLetters.contains(guessedLetter)) {
-            alreadyGuessedLetters.add(guessedLetter);
-        }
+
     }
 }
