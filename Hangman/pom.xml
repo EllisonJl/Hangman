@@ -95,7 +95,7 @@
                                 <!-- 指定主类的完全限定名 -->
                                 <addClasspath>true</addClasspath>
                                 <classpathPrefix>lib/</classpathPrefix>
-                                <mainClass>hangman.Main</mainClass>
+                                <mainClass>stacs.Hangman</mainClass>
                             </manifest>
                         </archive>
                     </configuration>

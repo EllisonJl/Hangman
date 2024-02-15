@@ -115,6 +115,7 @@ public class GameView {
             GameView.interfaceState(game); // Update interface information based on current game status
         }
     }
+
     /**
      * Displays the result of the game once it concludes.
      * This method informs the player of the outcome of the game, displaying a congratulatory message if they win,
@@ -122,6 +123,7 @@ public class GameView {
      *
      * @param game The game instance for which to display the result.
      */
+
     public static void displayGameResult(GameControl game) {
         if (game.isWordEqual()) { // Judging whether the word player has guessed is equal to the word the game has given or not.
             System.out.println("\nCongratulations, you've won! The word was: " + game.getGuessWord());

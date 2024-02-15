@@ -39,15 +39,15 @@ public class GameControl {
      * @return true if the guessed letter is part of the guess word, false otherwise.
      */
     public boolean guessResult(char guessedLetter) {
-        guessedLetter = Character.toLowerCase(guessedLetter);
+        guessedLetter = Character.toLowerCase(guessedLetter);// Transfer the letter which user guessed into lower case.
 
-        boolean isCorrect = updateCurrentGuessWord(guessedLetter);
+        boolean isCorrect = updateCurrentGuessWord(guessedLetter); // Check if the letter user have guessed is correct.
 
-        updateRemainingTimes(isCorrect);
+        updateRemainingTimes(isCorrect); // Choose whether you need to reduce the number of guesses based on whether the guess is correct or not.
 
-        recordGuessedLetter(guessedLetter);
+        recordGuessedLetter(guessedLetter);// Record the letters that the player has been guessed.
 
-        return isCorrect;
+        return isCorrect; // Return the guessed result.
     }
 
     /**
@@ -56,6 +56,7 @@ public class GameControl {
      * @return true if the current guessed word matches the original word exactly, false otherwise.
      */
     public boolean isWordEqual(){
+
         return guessWord.equals(currentGuessWord.toString());
     }
 
@@ -66,6 +67,7 @@ public class GameControl {
      * @return true if there are remaining attempts left, false otherwise.
      */
     public boolean isAttempt(){
+
         return remainingTimes > 0;
     }
 
@@ -77,6 +79,7 @@ public class GameControl {
      * @return A string representing the current state of the guessed word.
      */
     public String getCurrentGuessWord() {
+
         return currentGuessWord.toString();
     }
 
@@ -88,6 +91,7 @@ public class GameControl {
      * @return The number of remaining attempts.
      */
     public int getRemainingTimes() {
+
         return remainingTimes;
     }
 
@@ -99,6 +103,7 @@ public class GameControl {
      * @return A List of Characters representing the letters already guessed by the player.
      */
     public List<Character> getAlreadyGuessedLetters() {
+
         return alreadyGuessedLetters;
     }
 
@@ -120,6 +125,7 @@ public class GameControl {
      * @return Return guessWord to other class.
      */
     public String getGuessWord(){
+
         return guessWord;
     }
 
@@ -167,5 +173,4 @@ public class GameControl {
             alreadyGuessedLetters.add(guessedLetter);
         }
     }
-
 }
